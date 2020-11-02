@@ -1,0 +1,14 @@
+//
+// Created by Alie on 11/1/2020.
+//
+
+#ifndef PROJECT4_HIGHESTPRIORITY_PATIENT_H
+#define PROJECT4_HIGHESTPRIORITY_PATIENT_H
+
+
+class Patient {
+
+};
+
+
+#endif //PROJECT4_HIGHESTPRIORITY_PATIENT_H
