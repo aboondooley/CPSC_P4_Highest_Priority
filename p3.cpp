@@ -213,6 +213,12 @@ int main() {
 
     Patient p3("Jeremiah Evered", Patient::emergency);
     cout << p3.toString() << endl;
+
+    PatientPriorityQueue q;
+    q.enqueue(p);
+    q.enqueue(p3);
+    q.enqueue(p2);
+    cout << q.size() << endl;
     /*
     welcome();
 
