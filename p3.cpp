@@ -219,6 +219,9 @@ int main() {
     q.enqueue(p3);
     q.enqueue(p2);
     cout << q.size() << endl;
+    cout << q.dequeue().toString() << endl;
+    cout << q.dequeue().toString() << endl;
+    cout << q.dequeue().toString() << endl;
     /*
     welcome();
 
