@@ -1,5 +1,6 @@
 //
-// Created by Alie on 11/1/2020.
+// Created by Alie Boon-Dooley on 11/1/2020.
+// For Seattle University, CPSC 5005, P4.Triage
 //
 
 #include "Patient.h"
