@@ -17,7 +17,6 @@ private:
 
     void percolateUp(int index);
     void percolateDown(int index);
-    void heapify();
     int parent(int index) const;
     int left(int index) const;
     int right(int index) const;
@@ -30,6 +29,7 @@ public:
     Patient dequeue();
     void enqueue(Patient p);
     int size() const;
+    bool empty() const;
 
 };
 
