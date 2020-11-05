@@ -28,24 +28,8 @@ std::string Patient::toString() const {
            to_string(arrivalOrder) + " }";;
 }
 
-void Patient::setName(std::string newName) {
-    name = newName;
-}
-
 std::string Patient::getName() const {
     return name;
-}
-
-void Patient::setPriority(Patient::Priority newPriority) {
-    priorityCode = newPriority;
-}
-
-Patient::Priority Patient::getPriority() const {
-    return priorityCode;
-}
-
-int Patient::getArrivalOrder() const {
-    return arrivalOrder;
 }
 
 int Patient::compareTo(Patient &other) const {
