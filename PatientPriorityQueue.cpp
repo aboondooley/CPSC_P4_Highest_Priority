@@ -6,6 +6,7 @@
 #include "PatientPriorityQueue.h"
 #include <vector>
 #include <stdexcept>
+
 using namespace std;
 
 PatientPriorityQueue::PatientPriorityQueue() {}
@@ -20,8 +21,17 @@ bool PatientPriorityQueue::empty() const {
 
 const Patient &PatientPriorityQueue::peek() const {
     if (empty())
-        throw std::invalid_argument("empty queue");
+        throw invalid_argument("empty queue");
     return data[0];
+}
+
+const Patient &PatientPriorityQueue::peek(int index) const {
+    if (empty())
+        throw invalid_argument("empty queue");
+    if (index >= size()) {
+        throw invalid_argument("index out of bounds");
+    }
+    return data[index];
 }
 
 void PatientPriorityQueue::enqueue(Patient p) {
@@ -82,6 +92,8 @@ bool PatientPriorityQueue::hasLeft(int parent) const {
 bool PatientPriorityQueue::hasRight(int parent) const {
     return right(parent) < size();
 }
+
+
 
 
 
