@@ -44,14 +44,23 @@ void help() {
  * Prints welcome message.
  */
 void welcome() {
-    // TODO
+    cout << "\nWelcome to the Emergency Room Triage Program! \n"
+            "This program is a priority queue system for a hospital emergency "
+            "room. \nThe staff needs to enter the name and the priority "
+            "level of each patient. \nThe program takes care of the order in "
+            "which the patients should be seen. \n"
+            "Patients with the highest priority level will be highest in the "
+            "queue.\nWithin that priority level, patients are ordered by how "
+            "long they have been waiting, (longest waiting is seen first.)"
+            "\nType 'help' to see all of your options. " <<
+            endl;
 }
 
 /**
  * Prints farewell message.
  */
 void goodbye() {
-    // TODO
+    cout << "\n\n Thank you for using the Emergency Room Triage program! \n\n";
 }
 
 /**
@@ -94,8 +103,21 @@ void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
     }
 
     // TODO: add logic to remove leading/trailing spaces
-    // TODO: validate priority is between 1 and 4
-    // TODO: add patient
+    Patient::Priority pri;
+    if (priority == "immediate" || priority == "emergency" ||
+        priority == "urgent" || priority == "minimal") {
+        if (priority == "immediate") pri = Patient::immediate;
+        if (priority == "emergency") pri = Patient::emergency;
+        if (priority == "urgent") pri = Patient::urgent;
+        if (priority == "minimal") pri = Patient::minimal;
+        Patient p(name, pri);
+        priQueue.enqueue(p);
+        cout << "Added patient \"" << name << "\" to the priority system." <<
+             endl;
+    } else {
+        cout << "Error: invalid priority code given." << endl;
+        return;
+    }
 }
 
 /**
@@ -103,7 +125,13 @@ void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
  * @param priQueue queue to manipulate
  */
 void peekNextCmd(PatientPriorityQueue &priQueue) {
-    // TODO: shows next patient to be seen
+    if (!priQueue.empty()) {
+        cout << "Highest priority patient to be called next: " <<
+             priQueue.peek().getName() << endl;
+    } else {
+        cout << "Nobody is in the queue." << endl;
+        return;
+    }
 }
 
 /**
@@ -111,17 +139,27 @@ void peekNextCmd(PatientPriorityQueue &priQueue) {
  * @param priQueue queue to manipulate
  */
 void removePatientCmd(PatientPriorityQueue &priQueue) {
-    // TODO: removes and shows next patient to be seen
+    if (!priQueue.empty()) {
+        cout << "This patient will now be seen: " <<
+             priQueue.dequeue().getName() << endl;
+    } else {
+        cout << "Nobody is in the queue." << endl;
+        return;
+    }
 }
 
 /**
  * Displays the list of patients in the waiting room.
  * @param priQueue queue to manipulate
  */
-/*void showPatientListCmd(PatientPriorityQueue &priQueue) {
+void showPatientListCmd(PatientPriorityQueue &priQueue) {
     cout << "# patients waiting: " << priQueue.size() << endl;
-    // TODO: shows patient detail in arbitrary heap order (root first)
-}*/
+    if (!priQueue.empty()) {
+        for (int i = 0; i < priQueue.size(); i++) {
+            cout << priQueue.peek(i).toString() << endl;
+        }
+    }
+}
 
 // forward declare:
 void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue);
@@ -132,7 +170,7 @@ void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue);
  * @param priQueue queue to manipulate
  * @return         false to quit; true otherwise
  */
-/*bool processLine(string line, PatientPriorityQueue &priQueue) {
+bool processLine(string line, PatientPriorityQueue &priQueue) {
     // get command
     string cmd = delimitBySpace(line);
     if (cmd.length() == 0) {
@@ -159,7 +197,7 @@ void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue);
         cout << "Error: unrecognized command: " << cmd << endl;
 
     return true;
-}*/
+}
 
 /**
  * Reads a text file with each command on a separate line and executes the
@@ -167,8 +205,7 @@ void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue);
  * @param filename  of file with text commands
  * @param priQueue  queue to manipulate
  */
-/*void execCommandsFromFileCmd(string filename, PatientPriorityQueue
- * &priQueue) {
+void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue) {
     ifstream infile;
     infile.open(filename);
     if (infile) {
@@ -182,47 +219,13 @@ void execCommandsFromFileCmd(string filename, PatientPriorityQueue &priQueue);
         cout << "Error: could not open file." << endl;
     }
     infile.close();
-} */
+}
 
 /**
  * Main entry into triage program.
  * @return EXIT_SUCCESS
  */
 int main() {
-    Patient p;
-    cout << p.toString() << endl;
-    p.setName("Jane Smith");
-    cout << p.getName() << endl;
-    cout << p.toString() << endl;;
-    p.setPriority(Patient::immediate);
-    cout << p.getPriority() << endl;
-    cout << p.toString() << endl;
-    cout << p.getArrivalOrder() << endl;
-
-    Patient p2;
-    p2.setPriority(Patient::urgent);
-    p2.setName("Kylie Carter");
-    cout << p2.toString() << endl;
-
-    cout << p.compareTo(p2) << endl;// -1
-    cout << p2.compareTo(p) << endl; // 1
-
-    p2.setPriority(Patient::immediate);
-    cout << p2.compareTo(p) << endl; // 1
-    cout << p.compareTo(p2) << endl; // -1
-
-    Patient p3("Jeremiah Evered", Patient::emergency);
-    cout << p3.toString() << endl;
-
-    PatientPriorityQueue q;
-    q.enqueue(p);
-    q.enqueue(p3);
-    q.enqueue(p2);
-    cout << q.size() << endl;
-    cout << q.dequeue().toString() << endl;
-    cout << q.dequeue().toString() << endl;
-    cout << q.dequeue().toString() << endl;
-    /*
     welcome();
 
     // process commands
@@ -233,6 +236,6 @@ int main() {
         getline(cin, line);
     } while (processLine(line, priQueue));
 
-    goodbye();*/
+    goodbye();
     return EXIT_SUCCESS;
 }
