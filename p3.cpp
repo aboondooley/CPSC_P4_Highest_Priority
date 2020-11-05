@@ -2,7 +2,7 @@
 // Created by Kevin Lundeen on 10/21/20.
 // For Seattle University, CPSC 5005, P4.Triage
 //
-// TODO: complete all indicated code
+
 
 #include <fstream>
 #include <iostream>
@@ -53,7 +53,7 @@ void welcome() {
             "queue.\nWithin that priority level, patients are ordered by how "
             "long they have been waiting, (longest waiting is seen first.)"
             "\nType 'help' to see all of your options. " <<
-            endl;
+         endl;
 }
 
 /**
@@ -101,8 +101,12 @@ void addPatientCmd(string line, PatientPriorityQueue &priQueue) {
         cout << "Error: no patient name given." << endl;
         return;
     }
-
-    // TODO: add logic to remove leading/trailing spaces
+    int b, e;
+    b = name.find_first_not_of(" \t");
+    e = name.find_last_not_of(" \t");
+    name = name.substr(b, e - b + 1);
+    // I used this post as a reference for getting rid of the trailing and
+    // leading spaces: https://stackoverflow.com/questions/1798112/removing-leading-and-trailing-spaces-from-a-string
     Patient::Priority pri;
     if (priority == "immediate" || priority == "emergency" ||
         priority == "urgent" || priority == "minimal") {
